@@ -24,9 +24,9 @@ export default function HeroSection({
 }: HeroSectionProps) {
   if (variant === 'split') {
     return (
-      <section className="relative min-h-screen lg:min-h-[90vh] flex items-center pt-20 overflow-hidden bg-bg">
+      <section className="relative min-h-[70vh] lg:min-h-[80vh] flex items-center pt-20 overflow-hidden bg-bg">
         <div className="container-custom w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-16 lg:py-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center py-10 lg:py-0">
             <div className="order-2 lg:order-1">
               <FadeInView delay={0.1}>
                 <p className="label-badge text-accent mb-4">Language Teacher & Traveler</p>
@@ -48,7 +48,7 @@ export default function HeroSection({
             </div>
             <div className="order-1 lg:order-2 relative">
               <FadeInView direction="left" delay={0.3}>
-                <div className="relative aspect-[4/5] lg:aspect-[3/4] rounded-card overflow-hidden shadow-card-hover">
+                <div className="relative aspect-[3/3] lg:aspect-[4/4] max-h-[420px] lg:max-h-[480px] rounded-card overflow-hidden shadow-card-hover">
                   <Image
                     src={imageSrc}
                     alt={imageAlt}

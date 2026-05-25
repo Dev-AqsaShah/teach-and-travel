@@ -5,6 +5,7 @@ export const navLinks = [
   { label: 'Gallery', href: '/gallery' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
+  { label: 'Pricing', href: '/lessons#pricing' },
 ]
 
 export const footerLinks = [

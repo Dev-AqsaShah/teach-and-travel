@@ -12,9 +12,6 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    mdxRs: false,
-  },
 }
 
 export default nextConfig
