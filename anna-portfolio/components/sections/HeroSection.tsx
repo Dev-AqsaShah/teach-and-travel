@@ -24,31 +24,31 @@ export default function HeroSection({
 }: HeroSectionProps) {
   if (variant === 'split') {
     return (
-      <section className="relative min-h-[70vh] lg:min-h-[80vh] flex items-center pt-20 overflow-hidden bg-bg">
+      <section className="relative flex items-center pt-16 pb-8 overflow-hidden bg-bg">
         <div className="container-custom w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center py-10 lg:py-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center py-6 lg:py-8">
             <div className="order-2 lg:order-1">
               <FadeInView delay={0.1}>
-                <p className="label-badge text-accent mb-4">Language Teacher & Traveler</p>
+                <p className="label-badge text-accent mb-3">Language Teacher & Traveler</p>
               </FadeInView>
-              <h1 className="heading-display font-serif text-primary mb-6">
+              <h1 className="font-serif text-[2rem] lg:text-[2.8rem] leading-tight font-semibold text-primary mb-4">
                 <TextReveal text={headline} delay={0.2} />
               </h1>
               {subheadline && (
                 <FadeInView delay={0.5}>
-                  <p className="text-lg text-text-muted leading-relaxed mb-8 max-w-lg">{subheadline}</p>
+                  <p className="text-base text-text-muted leading-relaxed mb-6 max-w-md">{subheadline}</p>
                 </FadeInView>
               )}
               <FadeInView delay={0.65}>
-                <div className="flex flex-wrap gap-4">
-                  {primaryCTA && <Button href={primaryCTA.href} variant="primary" size="lg">{primaryCTA.label}</Button>}
-                  {secondaryCTA && <Button href={secondaryCTA.href} variant="secondary" size="lg">{secondaryCTA.label}</Button>}
+                <div className="flex flex-wrap gap-3">
+                  {primaryCTA && <Button href={primaryCTA.href} variant="primary" size="md">{primaryCTA.label}</Button>}
+                  {secondaryCTA && <Button href={secondaryCTA.href} variant="secondary" size="md">{secondaryCTA.label}</Button>}
                 </div>
               </FadeInView>
             </div>
             <div className="order-1 lg:order-2 relative">
               <FadeInView direction="left" delay={0.3}>
-                <div className="relative aspect-[3/3] lg:aspect-[4/4] max-h-[420px] lg:max-h-[480px] rounded-card overflow-hidden shadow-card-hover">
+                <div className="relative aspect-[4/3] lg:aspect-[3/3] max-h-[320px] lg:max-h-[360px] rounded-card overflow-hidden shadow-card-hover">
                   <Image
                     src={imageSrc}
                     alt={imageAlt}
@@ -59,12 +59,12 @@ export default function HeroSection({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent" />
                 </div>
-                <div className="absolute -bottom-4 -left-4 bg-white rounded-card shadow-card p-4 hidden lg:block">
-                  <p className="font-serif text-2xl font-semibold text-primary">200+</p>
+                <div className="absolute -bottom-3 -left-3 bg-white rounded-card shadow-card p-3 hidden lg:block">
+                  <p className="font-serif text-xl font-semibold text-primary">200+</p>
                   <p className="text-xs text-text-muted">Students Worldwide</p>
                 </div>
-                <div className="absolute -top-4 -right-4 bg-accent rounded-card shadow-card p-4 hidden lg:block">
-                  <p className="font-serif text-2xl font-semibold text-primary">40+</p>
+                <div className="absolute -top-3 -right-3 bg-accent rounded-card shadow-card p-3 hidden lg:block">
+                  <p className="font-serif text-xl font-semibold text-primary">40+</p>
                   <p className="text-xs text-primary/70">Countries</p>
                 </div>
               </FadeInView>
