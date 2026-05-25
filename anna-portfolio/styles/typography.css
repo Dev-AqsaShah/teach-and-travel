@@ -1,0 +1,83 @@
+.prose-anna {
+  color: #1A1A2E;
+  max-width: 65ch;
+  font-family: var(--font-dm-sans);
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+
+.prose-anna h1,
+.prose-anna h2,
+.prose-anna h3,
+.prose-anna h4 {
+  font-family: var(--font-cormorant);
+  color: #1A1A2E;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-anna h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+}
+
+.prose-anna h3 {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 600;
+}
+
+.prose-anna p {
+  margin-bottom: 1.25rem;
+}
+
+.prose-anna a {
+  color: #C9A84C;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.2s;
+}
+
+.prose-anna a:hover {
+  text-decoration-color: #C9A84C;
+}
+
+.prose-anna blockquote {
+  border-left: 3px solid #C9A84C;
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-family: var(--font-cormorant);
+  font-size: 1.25rem;
+  font-style: italic;
+  color: #6B6B88;
+}
+
+.prose-anna code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875em;
+  background: #F7F4EF;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}
+
+.prose-anna pre {
+  background: #1A1A2E;
+  color: #F7F4EF;
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.prose-anna ul,
+.prose-anna ol {
+  margin: 1rem 0 1.25rem 1.5rem;
+}
+
+.prose-anna li {
+  margin-bottom: 0.5rem;
+}
+
+.prose-anna img {
+  border-radius: 8px;
+  margin: 2rem 0;
+}
