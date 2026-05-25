@@ -34,7 +34,7 @@ export default function Navbar() {
         <div className="container-custom">
           <div className="flex items-center justify-between h-16 lg:h-20">
             <Link href="/" className="font-serif text-xl lg:text-2xl font-semibold text-primary hover:text-accent transition-colors">
-              Anna Volkova
+              Anna Gladysheva
             </Link>
 
             <nav className="hidden lg:flex items-center gap-8" aria-label="Primary navigation">

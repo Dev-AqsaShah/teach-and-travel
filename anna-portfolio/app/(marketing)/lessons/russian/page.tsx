@@ -11,14 +11,14 @@ import { testimonials } from '@/data/testimonials'
 
 export const metadata: Metadata = genMeta({
   title: 'Russian Language Lessons',
-  description: 'Learn Russian online with Anna Volkova — a native speaker with 8+ years of experience teaching students from 40+ countries.',
+  description: 'Learn Russian online with Anna Gladysheva — native speaker, academic researcher, and experienced teacher with 13+ years of experience.',
   path: '/lessons/russian',
 })
 
 const curriculum = [
-  { level: 'Beginner (A1–A2)', topics: 'Alphabet, pronunciation, greetings, basic grammar, survival phrases' },
-  { level: 'Intermediate (B1–B2)', topics: 'Conversational fluency, complex grammar, reading and listening' },
-  { level: 'Advanced (C1)', topics: 'Nuanced expression, idioms, business Russian, exam prep (TORFL)' },
+  { level: 'Beginner (A1–A2)', topics: 'Cyrillic alphabet, pronunciation, basic grammar, everyday conversations, survival phrases' },
+  { level: 'Intermediate (B1–B2)', topics: 'Conversational fluency, aspect pairs, reading authentic texts, listening comprehension' },
+  { level: 'Advanced (C1)', topics: 'Nuanced expression, idioms, academic Russian, literature, TORFL exam preparation' },
 ]
 
 export default function RussianLessonsPage() {
@@ -28,8 +28,8 @@ export default function RussianLessonsPage() {
   return (
     <>
       <HeroSection
-        headline="Learn Russian with a Native Speaker"
-        subheadline="Personalized 1-on-1 Russian lessons designed for your goals — from absolute beginner to conversational fluency."
+        headline="Learn Russian with a Native Speaker & Scholar"
+        subheadline="Personalised 1-on-1 Russian lessons taught by an academic historian — language learning with cultural and historical depth."
         primaryCTA={{ label: 'Book Your First Lesson', href: '/book' }}
         imageSrc="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200"
         imageAlt="Russian language lessons"
@@ -45,12 +45,12 @@ export default function RussianLessonsPage() {
           </FadeInView>
           <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { who: 'Heritage Speakers', desc: 'Reconnect with your family language and culture.' },
-              { who: 'Travelers', desc: 'Prepare for a trip to Russia, Ukraine, or Eastern Europe.' },
+              { who: 'Heritage Speakers', desc: 'Reconnect with your family language and Russian cultural roots.' },
+              { who: 'Travelers & Expats', desc: 'Prepare for life or travel in Russia and Russian-speaking regions.' },
               { who: 'Professionals', desc: 'Expand career opportunities with Russian language skills.' },
-              { who: 'Exam Students', desc: 'TORFL, CEFR exam preparation with targeted practice.' },
-              { who: 'Language Enthusiasts', desc: 'Learn for the love of Slavic languages and literature.' },
-              { who: 'Beginners', desc: 'Start from zero with patient, structured guidance.' },
+              { who: 'TORFL Students', desc: 'Targeted exam preparation with a researcher who knows the material deeply.' },
+              { who: 'History & Culture Lovers', desc: 'Explore Russian literature, history, and intellectual tradition.' },
+              { who: 'Absolute Beginners', desc: 'Start from zero with structured, patient, expert guidance.' },
             ].map((item) => (
               <StaggerItem key={item.who}>
                 <div className="card-base card-hover p-6">
@@ -75,7 +75,7 @@ export default function RussianLessonsPage() {
               <StaggerItem key={item.level}>
                 <div className="card-base p-6 flex gap-4 items-start">
                   <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
-                    <span className="text-accent font-serif font-semibold text-sm">Aa</span>
+                    <span className="text-accent font-serif font-semibold text-sm">Ru</span>
                   </div>
                   <div>
                     <h3 className="font-semibold text-primary mb-1">{item.level}</h3>
@@ -88,7 +88,7 @@ export default function RussianLessonsPage() {
         </div>
       </section>
 
-      <TestimonialsCarousel testimonials={russianTestimonials} />
+      <TestimonialsCarousel testimonials={russianTestimonials.length > 0 ? russianTestimonials : testimonials.slice(0, 3)} />
       <PricingTable tiers={service.pricing} language="Russian" />
 
       <section className="section-padding bg-primary text-center">

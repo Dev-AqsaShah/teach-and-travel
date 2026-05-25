@@ -1,9 +1,9 @@
 import StaggerChildren, { StaggerItem } from '@/components/motion/StaggerChildren'
 
 const stats = [
-  { value: '200+', label: 'Students Taught' },
-  { value: '8 Yrs', label: 'Teaching Experience' },
-  { value: '40+', label: 'Countries Visited' },
+  { value: '13+', label: 'Years Teaching' },
+  { value: '20+', label: 'Int\'l Conferences' },
+  { value: '2', label: 'Languages Taught' },
   { value: '4.9★', label: 'Average Rating' },
 ]
 

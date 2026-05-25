@@ -8,7 +8,7 @@ export const testimonials: Testimonial[] = [
     countryFlag: '🇺🇸',
     rating: 5,
     quote:
-      'Anna made learning Russian feel achievable. Her structured approach and patient teaching style helped me go from zero to conversational in just 6 months.',
+      'Anna made learning Russian feel natural and enjoyable. Her academic background gives her a unique ability to explain the "why" behind every grammar rule.',
     lessonType: 'russian',
   },
   {
@@ -18,8 +18,8 @@ export const testimonials: Testimonial[] = [
     countryFlag: '🇩🇪',
     rating: 5,
     quote:
-      'I tried 3 teachers before Anna. She is simply the best — always prepared, always encouraging. My confidence has grown so much.',
-    lessonType: 'russian',
+      'I wanted to learn Romanian and finding a qualified native-level teacher was nearly impossible — until I found Anna. She is exceptional.',
+    lessonType: 'romanian',
   },
   {
     id: '3',
@@ -28,27 +28,27 @@ export const testimonials: Testimonial[] = [
     countryFlag: '🇬🇧',
     rating: 5,
     quote:
-      'Working with Anna completely transformed my business English. She understood my goals immediately and created a custom plan for me.',
-    lessonType: 'english',
-  },
-  {
-    id: '4',
-    name: 'Yuki H.',
-    country: 'Japan',
-    countryFlag: '🇯🇵',
-    rating: 5,
-    quote:
-      'The lessons are always engaging and perfectly paced. Anna genuinely cares about your progress — I feel it every session.',
+      'Anna brings a historian\'s depth to language teaching. Every lesson I learn not just words, but culture, history, and context.',
     lessonType: 'russian',
   },
   {
-    id: '5',
-    name: 'Layla A.',
-    country: 'UAE',
-    countryFlag: '🇦🇪',
+    id: '4',
+    name: 'Elena V.',
+    country: 'Romania',
+    countryFlag: '🇷🇴',
     rating: 5,
     quote:
-      'Anna\'s teaching is warm, professional, and incredibly effective. I highly recommend her to anyone serious about learning.',
-    lessonType: 'english',
+      'As a Romanian myself, I was amazed by Anna\'s fluency and deep knowledge of Romanian culture and history. An outstanding teacher.',
+    lessonType: 'romanian',
+  },
+  {
+    id: '5',
+    name: 'Andrei P.',
+    country: 'France',
+    countryFlag: '🇫🇷',
+    rating: 5,
+    quote:
+      'Anna\'s structured, patient approach helped me go from zero Russian to holding real conversations in under a year. Truly gifted.',
+    lessonType: 'russian',
   },
 ]

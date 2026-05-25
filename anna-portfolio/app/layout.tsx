@@ -20,9 +20,9 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Anna Volkova — Language Teacher & Traveler',
+  title: 'Anna Gladysheva — Language Teacher & Researcher',
   description:
-    'Private Russian & English lessons with a native speaker who has taught students across 40+ countries. Book your first lesson today.',
+    'Private Russian & Romanian lessons with Anna Gladysheva — academic researcher, historian, and experienced language teacher based in Vladimir, Russia.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://annavolkova.com'),
   openGraph: {
     siteName: 'Anna Volkova',

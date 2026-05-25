@@ -11,10 +11,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-12">
           <div className="lg:col-span-1">
             <Link href="/" className="font-serif text-2xl font-semibold text-white hover:text-accent transition-colors">
-              Anna Volkova
+              Anna Gladysheva
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-white/60">
-              Language Teacher & Traveler — helping students from 40+ countries speak Russian and English with confidence.
+              Language Teacher & Researcher — Russian & Romanian lessons from an academic specialist based in Vladimir, Russia.
             </p>
             <div className="flex items-center gap-3 mt-5">
                 {[
@@ -27,7 +27,7 @@ export default function Footer() {
                   <ExternalLink size={14} />
                 </a>
               ))}
-              <a href="mailto:anna@annavolkova.com" aria-label="Email Anna" className="p-2 rounded-full border border-white/20 hover:border-accent hover:text-accent transition-colors">
+              <a href="mailto:annikigladysheva@gmail.com" aria-label="Email Anna" className="p-2 rounded-full border border-white/20 hover:border-accent hover:text-accent transition-colors">
                 <Mail size={16} />
               </a>
             </div>
@@ -50,7 +50,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
-          <p>© {currentYear} Anna Volkova. All rights reserved.</p>
+          <p>© {currentYear} Anna Gladysheva. All rights reserved.</p>
           <p>Designed & built with care for language learners worldwide.</p>
         </div>
       </div>

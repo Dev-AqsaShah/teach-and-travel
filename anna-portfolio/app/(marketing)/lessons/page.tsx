@@ -12,12 +12,12 @@ import { ShieldCheck, Clock, RefreshCw } from 'lucide-react'
 
 export const metadata: Metadata = genMeta({
   title: 'Lessons & Services',
-  description: 'Private Russian and English lessons tailored to your goals. Native speaker, flexible scheduling, all levels welcome.',
+  description: 'Private Russian and Romanian lessons with Anna Gladysheva — academic researcher and experienced language teacher. All levels welcome.',
   path: '/lessons',
 })
 
 const guarantees = [
-  { icon: <ShieldCheck size={24} />, label: 'Native Speaker' },
+  { icon: <ShieldCheck size={24} />, label: 'Native Russian Speaker' },
   { icon: <Clock size={24} />, label: 'Flexible Schedule' },
   { icon: <RefreshCw size={24} />, label: 'Money-Back on Trial' },
 ]
@@ -28,11 +28,11 @@ export default function LessonsPage() {
   return (
     <>
       <HeroSection
-        headline="Tailored Language Learning — Just for You"
-        subheadline="Choose Russian or English lessons and get a curriculum built entirely around your goals, schedule, and learning style."
+        headline="Language Learning with Academic Depth"
+        subheadline="Russian and Romanian lessons designed around your goals — backed by 13+ years of teaching and academic research experience."
         primaryCTA={{ label: 'Book a Lesson', href: '/book' }}
         imageSrc="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200"
-        imageAlt="Online language lesson"
+        imageAlt="Language lesson online"
         variant="fullbleed"
       />
 

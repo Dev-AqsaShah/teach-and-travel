@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://annavolkova.com'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://annagladysheva.com'
 
 export function generateMetadata({
   title,
@@ -13,7 +13,7 @@ export function generateMetadata({
   path?: string
   ogImage?: string
 }): Metadata {
-  const fullTitle = `${title} | Anna Volkova — Language Teacher`
+  const fullTitle = `${title} | Anna Gladysheva — Language Teacher & Researcher`
   const url = `${siteUrl}${path}`
   const image = ogImage || `${siteUrl}/og-default.jpg`
 
@@ -26,7 +26,7 @@ export function generateMetadata({
       title: fullTitle,
       description,
       url,
-      siteName: 'Anna Volkova',
+      siteName: 'Anna Gladysheva',
       images: [{ url: image, width: 1200, height: 630 }],
       type: 'website',
     },

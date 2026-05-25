@@ -25,7 +25,7 @@ export const footerLinks = [
     heading: 'Lessons',
     links: [
       { label: 'Russian Lessons', href: '/lessons/russian' },
-      { label: 'English Lessons', href: '/lessons/english' },
+      { label: 'Romanian Lessons', href: '/lessons/romanian' },
       { label: 'Pricing', href: '/lessons#pricing' },
       { label: 'Book a Lesson', href: '/book' },
       { label: 'FAQ', href: '/lessons#faq' },

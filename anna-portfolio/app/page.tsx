@@ -19,7 +19,7 @@ import { getAllPosts } from '@/lib/blog'
 export const metadata: Metadata = genMeta({
   title: 'Home',
   description:
-    'Private Russian & English lessons with Anna Volkova — a native speaker who has taught students across 40+ countries. Book your free consultation today.',
+    'Private Russian & Romanian lessons with Anna Gladysheva — academic researcher and language teacher with 13+ years of experience. Book your free consultation today.',
 })
 
 export default function HomePage() {
@@ -29,12 +29,12 @@ export default function HomePage() {
   return (
     <>
       <HeroSection
-        headline="Learn Languages. See the World."
-        subheadline="Private Russian & English lessons with a native speaker who has taught students across 40+ countries."
+        headline="Learn Russian or Romanian. Deeply."
+        subheadline="Private lessons with Anna Gladysheva — academic researcher, historian, and language teacher with 13+ years of experience."
         primaryCTA={{ label: 'Book Your First Lesson', href: '/book' }}
         secondaryCTA={{ label: 'Meet Anna', href: '/about' }}
         imageSrc="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200"
-        imageAlt="Anna Volkova — Language Teacher"
+        imageAlt="Anna Gladysheva — Language Teacher"
         variant="split"
       />
 
@@ -58,7 +58,7 @@ export default function HomePage() {
               <div className="relative aspect-[4/5] max-w-md rounded-card overflow-hidden shadow-card-hover mx-auto lg:mx-0">
                 <Image
                   src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800"
-                  alt="Anna Volkova portrait"
+                  alt="Anna Gladysheva portrait"
                   fill
                   sizes="(max-width: 1024px) 80vw, 40vw"
                   className="object-cover"
@@ -67,12 +67,12 @@ export default function HomePage() {
             </FadeInView>
             <FadeInView direction="left" delay={0.2}>
               <p className="label-badge text-accent mb-4">About Anna</p>
-              <h2 className="heading-1 font-serif text-primary mb-6">A Teacher Who Has Lived What She Teaches</h2>
+              <h2 className="heading-1 font-serif text-primary mb-6">Scholar, Teacher, Language Enthusiast</h2>
               <p className="text-text-muted leading-relaxed mb-4">
-                I&rsquo;m Anna Volkova, a Russian language teacher, certified English instructor, and passionate world traveler. Born in Saint Petersburg, I discovered my love for teaching when I began tutoring exchange students at university.
+                I&rsquo;m Anna Gladysheva — a Russian language teacher, Romanian specialist, and academic historian based in Vladimir, Russia. I hold a Specialist Degree in History and have conducted PhD research at both the University of Bucharest and the Russian Academy of Sciences.
               </p>
               <p className="text-text-muted leading-relaxed mb-8">
-                Over the past 8 years, I&rsquo;ve taught more than 200 students from 40+ countries — from busy professionals in New York to heritage speakers in Berlin.
+                With 13+ years of teaching experience and deep roots in Romanian-Russian cultural history, I bring a uniquely rich perspective to every lesson.
               </p>
               <Button href="/about" variant="secondary">Read My Story →</Button>
             </FadeInView>
@@ -88,7 +88,7 @@ export default function HomePage() {
           <FadeInView className="flex items-end justify-between mb-10">
             <div>
               <p className="label-badge text-accent mb-3">Travel Gallery</p>
-              <h2 className="heading-2 font-serif text-primary">Around the World</h2>
+              <h2 className="heading-2 font-serif text-primary">Russia, Romania & Beyond</h2>
             </div>
             <Link href="/gallery" className="text-accent font-semibold text-sm hover:underline hidden sm:block">
               View Full Gallery →
@@ -126,7 +126,7 @@ export default function HomePage() {
           <div className="container-custom">
             <FadeInView className="flex items-end justify-between mb-10">
               <div>
-                <p className="label-badge text-accent mb-3">Travel Journal</p>
+                <p className="label-badge text-accent mb-3">Journal & Insights</p>
                 <h2 className="heading-2 font-serif text-primary">Latest from the Blog</h2>
               </div>
               <Link href="/blog" className="text-accent font-semibold text-sm hover:underline hidden sm:block">

@@ -6,7 +6,7 @@ import { Mail, Clock, MapPin, ExternalLink } from 'lucide-react'
 
 export const metadata: Metadata = genMeta({
   title: 'Contact',
-  description: 'Get in touch with Anna Volkova. Questions about lessons, pricing, or anything else — I respond within 24 hours.',
+  description: 'Get in touch with Anna Gladysheva. Questions about lessons, pricing, or anything else — I respond within 24 hours.',
   path: '/contact',
 })
 
@@ -33,8 +33,8 @@ export default function ContactPage() {
                 <Mail size={18} className="text-accent mt-0.5 shrink-0" />
                 <div>
                   <p className="font-semibold text-primary text-sm">Email</p>
-                  <a href="mailto:anna@annavolkova.com" className="text-text-muted text-sm hover:text-accent transition-colors">
-                    anna@annavolkova.com
+                  <a href="mailto:annikigladysheva@gmail.com" className="text-text-muted text-sm hover:text-accent transition-colors">
+                    annikigladysheva@gmail.com
                   </a>
                 </div>
               </div>
@@ -42,7 +42,7 @@ export default function ContactPage() {
                 <MapPin size={18} className="text-accent mt-0.5 shrink-0" />
                 <div>
                   <p className="font-semibold text-primary text-sm">Location</p>
-                  <p className="text-text-muted text-sm">Moscow, Russia (UTC+3)</p>
+                  <p className="text-text-muted text-sm">Vladimir, Russia (UTC+3)</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
