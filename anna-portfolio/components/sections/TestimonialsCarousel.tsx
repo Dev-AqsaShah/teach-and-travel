@@ -123,60 +123,74 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
         </FadeInView>
 
         <div className="max-w-3xl mx-auto">
-          {/* Carousel */}
-          <div className="relative overflow-hidden">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={current}
-                custom={direction}
-                initial={{ opacity: 0, x: direction * 60 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -direction * 60 }}
-                transition={{ duration: 0.4, ease: 'easeOut' }}
-                className="bg-white/5 border border-white/10 rounded-card p-8 lg:p-10 text-center"
-              >
-                <StarRating rating={t.rating} className="justify-center mb-5" />
-                <blockquote className="font-serif text-xl lg:text-2xl text-white/90 leading-relaxed mb-6 italic">
-                  &ldquo;{t.quote}&rdquo;
-                </blockquote>
-                <div className="flex items-center justify-center gap-3">
-                  <Avatar alt={t.name} src={t.avatarUrl} size="md" />
-                  <div className="text-left">
-                    <p className="font-semibold text-white">{t.name}</p>
-                    <p className="text-sm text-white/50">{t.countryFlag} {t.country}</p>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+          {/* Empty state */}
+          {all.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-white/5 border border-white/10 rounded-card p-10 text-center"
+            >
+              <p className="font-serif text-white/60 text-lg italic mb-2">No reviews yet.</p>
+              <p className="text-white/40 text-sm">Be the first to share your experience!</p>
+            </motion.div>
+          ) : (
+            <>
+              {/* Carousel */}
+              <div className="relative overflow-hidden">
+                <AnimatePresence mode="wait" custom={direction}>
+                  <motion.div
+                    key={current}
+                    custom={direction}
+                    initial={{ opacity: 0, x: direction * 60 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -direction * 60 }}
+                    transition={{ duration: 0.4, ease: 'easeOut' }}
+                    className="bg-white/5 border border-white/10 rounded-card p-8 lg:p-10 text-center"
+                  >
+                    <StarRating rating={t.rating} className="justify-center mb-5" />
+                    <blockquote className="font-serif text-xl lg:text-2xl text-white/90 leading-relaxed mb-6 italic">
+                      &ldquo;{t.quote}&rdquo;
+                    </blockquote>
+                    <div className="flex items-center justify-center gap-3">
+                      <Avatar alt={t.name} src={t.avatarUrl} size="md" />
+                      <div className="text-left">
+                        <p className="font-semibold text-white">{t.name}</p>
+                        <p className="text-sm text-white/50">{t.countryFlag} {t.country}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
 
-          {/* Prev / dots / Next */}
-          <div className="flex items-center justify-center gap-4 mt-8">
-            <button
-              onClick={prev}
-              className="p-2 rounded-full border border-white/20 text-white hover:border-accent hover:text-accent transition-colors"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <div className="flex gap-2">
-              {all.map((_, i) => (
+              {/* Prev / dots / Next */}
+              <div className="flex items-center justify-center gap-4 mt-8">
                 <button
-                  key={i}
-                  onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i) }}
-                  className={`h-2 rounded-full transition-all duration-300 ${i === current ? 'bg-accent w-6' : 'bg-white/30 w-2'}`}
-                  aria-label={`Go to testimonial ${i + 1}`}
-                />
-              ))}
-            </div>
-            <button
-              onClick={next}
-              className="p-2 rounded-full border border-white/20 text-white hover:border-accent hover:text-accent transition-colors"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight size={20} />
-            </button>
-          </div>
+                  onClick={prev}
+                  className="p-2 rounded-full border border-white/20 text-white hover:border-accent hover:text-accent transition-colors"
+                  aria-label="Previous testimonial"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <div className="flex gap-2">
+                  {all.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i) }}
+                      className={`h-2 rounded-full transition-all duration-300 ${i === current ? 'bg-accent w-6' : 'bg-white/30 w-2'}`}
+                      aria-label={`Go to testimonial ${i + 1}`}
+                    />
+                  ))}
+                </div>
+                <button
+                  onClick={next}
+                  className="p-2 rounded-full border border-white/20 text-white hover:border-accent hover:text-accent transition-colors"
+                  aria-label="Next testimonial"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            </>
+          )}
 
           {/* Success message */}
           <AnimatePresence>
