@@ -5,7 +5,6 @@ import HeroSection from '@/components/sections/HeroSection'
 import StatStrip from '@/components/sections/StatStrip'
 import ServiceCardsSection from '@/components/sections/ServiceCard'
 import TestimonialsCarousel from '@/components/sections/TestimonialsCarousel'
-import BlogCard from '@/components/sections/BlogCard'
 import NewsletterCTA from '@/components/sections/NewsletterCTA'
 import FadeInView from '@/components/motion/FadeInView'
 import StaggerChildren, { StaggerItem } from '@/components/motion/StaggerChildren'
@@ -14,7 +13,6 @@ import { testimonials } from '@/data/testimonials'
 import { services } from '@/data/services'
 import { galleryImages } from '@/data/gallery'
 import { generateMetadata as genMeta } from '@/lib/seo'
-import { getAllPosts } from '@/lib/blog'
 
 export const metadata: Metadata = genMeta({
   title: 'Home',
@@ -23,7 +21,6 @@ export const metadata: Metadata = genMeta({
 })
 
 export default function HomePage() {
-  const posts = getAllPosts().slice(0, 3)
   const previewPhotos = galleryImages.slice(0, 6)
 
   return (
@@ -119,30 +116,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Blog Preview */}
-      {posts.length > 0 && (
-        <section className="section-padding bg-bg">
-          <div className="container-custom">
-            <FadeInView className="flex items-end justify-between mb-10">
-              <div>
-                <p className="label-badge text-accent mb-3">Journal & Insights</p>
-                <h2 className="heading-2 font-serif text-primary">Latest from the Blog</h2>
-              </div>
-              <Link href="/blog" className="text-accent font-semibold text-sm hover:underline hidden sm:block">
-                Read the Journal →
-              </Link>
-            </FadeInView>
-            <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {posts.map((post) => (
-                <StaggerItem key={post.slug}>
-                  <BlogCard post={post} />
-                </StaggerItem>
-              ))}
-            </StaggerChildren>
-          </div>
-        </section>
-      )}
 
       <NewsletterCTA />
 
