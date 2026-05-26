@@ -16,8 +16,8 @@ export async function sendContactEmail({
   learningGoal: string
   message: string
 }) {
-  return resend.emails.send({
-    from: 'Contact Form <contact@annavolkova.com>',
+  const { error } = await resend.emails.send({
+    from: 'Contact Form <onboarding@resend.dev>',
     to: process.env.CONTACT_EMAIL_TO || 'anna@annavolkova.com',
     subject: `New inquiry from ${name} — ${learningGoal}`,
     html: `
@@ -30,10 +30,11 @@ export async function sendContactEmail({
       <p>${message}</p>
     `,
   })
+  if (error) throw new Error(error.message)
 }
 
 export async function sendWelcomeTip(toEmail: string, tip: LanguageTip) {
-  return resend.emails.send({
+  const { error } = await resend.emails.send({
     from: 'Anna Gladysheva <onboarding@resend.dev>',
     to: toEmail,
     subject: `${tip.emoji} Your Language Tip: ${tip.title}`,
@@ -58,4 +59,5 @@ export async function sendWelcomeTip(toEmail: string, tip: LanguageTip) {
       </div>
     `,
   })
+  if (error) throw new Error(error.message)
 }
