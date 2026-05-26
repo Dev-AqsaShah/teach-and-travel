@@ -8,8 +8,6 @@ import StarRating from '@/components/ui/StarRating'
 import Avatar from '@/components/ui/Avatar'
 import FadeInView from '@/components/motion/FadeInView'
 
-const STORAGE_KEY = 'anna_student_reviews'
-
 function StarSelector({ value, onChange }: { value: number; onChange: (n: number) => void }) {
   const [hovered, setHovered] = useState(0)
   return (
@@ -26,11 +24,7 @@ function StarSelector({ value, onChange }: { value: number; onChange: (n: number
         >
           <Star
             size={26}
-            className={
-              n <= (hovered || value)
-                ? 'text-accent fill-accent'
-                : 'text-white/30'
-            }
+            className={n <= (hovered || value) ? 'text-accent fill-accent' : 'text-white/30'}
           />
         </button>
       ))}
@@ -38,24 +32,52 @@ function StarSelector({ value, onChange }: { value: number; onChange: (n: number
   )
 }
 
+type DbReview = {
+  id: string
+  name: string
+  country: string
+  country_flag: string
+  rating: number
+  quote: string
+}
+
 type FormState = { name: string; country: string; rating: number; quote: string }
 type FormErrors = Partial<Record<keyof FormState, string>>
 
+function dbToTestimonial(r: DbReview): Testimonial {
+  return {
+    id: r.id,
+    name: r.name,
+    country: r.country || 'Student',
+    countryFlag: r.country_flag || '⭐',
+    rating: Math.min(5, Math.max(1, r.rating)) as Testimonial['rating'],
+    quote: r.quote,
+    lessonType: 'russian',
+  }
+}
+
 export default function TestimonialsCarousel({ testimonials }: { testimonials: Testimonial[] }) {
   const [all, setAll] = useState<Testimonial[]>(testimonials)
+  const [loading, setLoading] = useState(true)
   const [current, setCurrent] = useState(0)
   const [direction, setDirection] = useState(1)
   const [showForm, setShowForm] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [form, setForm] = useState<FormState>({ name: '', country: '', rating: 5, quote: '' })
   const [errors, setErrors] = useState<FormErrors>({})
 
   useEffect(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') as Testimonial[]
-      if (saved.length > 0) setAll([...testimonials, ...saved])
-    } catch {}
-  }, [testimonials])
+    fetch('/api/reviews')
+      .then((r) => r.json())
+      .then((data: DbReview[]) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setAll(data.map(dbToTestimonial))
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }, [])
 
   const next = useCallback(() => {
     setDirection(1)
@@ -68,10 +90,10 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
   }
 
   useEffect(() => {
-    if (showForm) return
+    if (showForm || all.length === 0) return
     const timer = setInterval(next, 5000)
     return () => clearInterval(timer)
-  }, [next, showForm])
+  }, [next, showForm, all.length])
 
   const validate = (): FormErrors => {
     const e: FormErrors = {}
@@ -80,36 +102,43 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
     return e
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length > 0) { setErrors(errs); return }
 
-    const newReview: Testimonial = {
-      id: `user-${Date.now()}`,
-      name: form.name.trim(),
-      country: form.country.trim() || 'Student',
-      countryFlag: '⭐',
-      rating: Math.min(5, Math.max(1, form.rating)) as Testimonial['rating'],
-      quote: form.quote.trim(),
-      lessonType: 'russian',
-    }
-
-    const updated = [...all, newReview]
-    setAll(updated)
-
+    setSubmitting(true)
     try {
-      const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') as Testimonial[]
-      localStorage.setItem(STORAGE_KEY, JSON.stringify([...existing, newReview]))
-    } catch {}
+      const res = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          country: form.country.trim() || 'Student',
+          country_flag: '⭐',
+          rating: form.rating,
+          quote: form.quote.trim(),
+        }),
+      })
 
-    setDirection(1)
-    setCurrent(updated.length - 1)
-    setShowForm(false)
-    setSubmitted(true)
-    setForm({ name: '', country: '', rating: 5, quote: '' })
-    setErrors({})
-    setTimeout(() => setSubmitted(false), 4000)
+      const saved: DbReview = await res.json()
+      if (!res.ok) throw new Error()
+
+      const newReview = dbToTestimonial(saved)
+      const updated = [...all, newReview]
+      setAll(updated)
+      setDirection(1)
+      setCurrent(updated.length - 1)
+      setShowForm(false)
+      setSubmitted(true)
+      setForm({ name: '', country: '', rating: 5, quote: '' })
+      setErrors({})
+      setTimeout(() => setSubmitted(false), 4000)
+    } catch {
+      setErrors({ quote: 'Could not save review. Please try again.' })
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const t = all[current]
@@ -123,8 +152,11 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
         </FadeInView>
 
         <div className="max-w-3xl mx-auto">
-          {/* Empty state */}
-          {all.length === 0 ? (
+          {loading ? (
+            <div className="bg-white/5 border border-white/10 rounded-card p-10 text-center">
+              <p className="text-white/40 text-sm animate-pulse">Loading reviews…</p>
+            </div>
+          ) : all.length === 0 ? (
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -135,7 +167,6 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
             </motion.div>
           ) : (
             <>
-              {/* Carousel */}
               <div className="relative overflow-hidden">
                 <AnimatePresence mode="wait" custom={direction}>
                   <motion.div
@@ -162,13 +193,8 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
                 </AnimatePresence>
               </div>
 
-              {/* Prev / dots / Next */}
               <div className="flex items-center justify-center gap-4 mt-8">
-                <button
-                  onClick={prev}
-                  className="p-2 rounded-full border border-white/20 text-white hover:border-accent hover:text-accent transition-colors"
-                  aria-label="Previous testimonial"
-                >
+                <button onClick={prev} className="p-2 rounded-full border border-white/20 text-white hover:border-accent hover:text-accent transition-colors" aria-label="Previous">
                   <ChevronLeft size={20} />
                 </button>
                 <div className="flex gap-2">
@@ -181,18 +207,13 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
                     />
                   ))}
                 </div>
-                <button
-                  onClick={next}
-                  className="p-2 rounded-full border border-white/20 text-white hover:border-accent hover:text-accent transition-colors"
-                  aria-label="Next testimonial"
-                >
+                <button onClick={next} className="p-2 rounded-full border border-white/20 text-white hover:border-accent hover:text-accent transition-colors" aria-label="Next">
                   <ChevronRight size={20} />
                 </button>
               </div>
             </>
           )}
 
-          {/* Success message */}
           <AnimatePresence>
             {submitted && (
               <motion.p
@@ -206,7 +227,6 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
             )}
           </AnimatePresence>
 
-          {/* Write a Review toggle */}
           <div className="text-center mt-8">
             <button
               onClick={() => setShowForm((v) => !v)}
@@ -217,7 +237,6 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
             </button>
           </div>
 
-          {/* Animated Review Form */}
           <AnimatePresence>
             {showForm && (
               <motion.div
@@ -231,16 +250,11 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
                   <div className="bg-white/5 border border-white/10 rounded-card p-6 lg:p-8 mt-6 space-y-5">
                     <h3 className="font-serif text-white text-lg text-center">Share Your Experience</h3>
 
-                    {/* Star rating */}
                     <div>
                       <p className="text-white/50 text-xs mb-2">Your Rating</p>
-                      <StarSelector
-                        value={form.rating}
-                        onChange={(n) => setForm({ ...form, rating: n })}
-                      />
+                      <StarSelector value={form.rating} onChange={(n) => setForm({ ...form, rating: n })} />
                     </div>
 
-                    {/* Name + Country */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="text-white/50 text-xs block mb-1.5">Your Name *</label>
@@ -265,7 +279,6 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
                       </div>
                     </div>
 
-                    {/* Review text */}
                     <div>
                       <label className="text-white/50 text-xs block mb-1.5">Your Review *</label>
                       <textarea
@@ -280,11 +293,12 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
 
                     <motion.button
                       type="submit"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full py-3 bg-accent text-primary font-semibold rounded-btn hover:bg-accent/90 transition-colors text-sm"
+                      disabled={submitting}
+                      whileHover={{ scale: submitting ? 1 : 1.02 }}
+                      whileTap={{ scale: submitting ? 1 : 0.98 }}
+                      className="w-full py-3 bg-accent text-primary font-semibold rounded-btn hover:bg-accent/90 transition-colors text-sm disabled:opacity-60"
                     >
-                      Submit Review
+                      {submitting ? 'Saving…' : 'Submit Review'}
                     </motion.button>
                   </div>
                 </form>
