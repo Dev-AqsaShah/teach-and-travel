@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import emailjs from '@emailjs/browser'
+import { languageTips } from '@/data/languageTips'
 import FadeInView from '@/components/motion/FadeInView'
 
 export default function NewsletterCTA() {
@@ -15,23 +17,24 @@ export default function NewsletterCTA() {
     setStatus('loading')
     setErrorMsg('')
 
+    const tip = languageTips[Math.floor(Math.random() * languageTips.length)]
+
     try {
-      const res = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
-      const data = await res.json()
-
-      if (!res.ok) {
-        setErrorMsg(data.error || 'Something went wrong.')
-        setStatus('error')
-        return
-      }
-
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          to_email: email,
+          tip_language: tip.language,
+          tip_emoji: tip.emoji,
+          tip_title: tip.title,
+          tip_body: tip.body,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+      )
       setStatus('success')
     } catch {
-      setErrorMsg('Could not connect. Please try again.')
+      setErrorMsg('Could not send. Please try again.')
       setStatus('error')
     }
   }
@@ -57,7 +60,10 @@ export default function NewsletterCTA() {
                 className="bg-accent/10 border border-accent/30 rounded-card px-6 py-5"
               >
                 <p className="text-primary font-serif text-lg mb-1">Check your inbox!</p>
-                <p className="text-text-muted text-sm">A language tip is on its way to <span className="font-semibold text-primary">{email}</span>.</p>
+                <p className="text-text-muted text-sm">
+                  A language tip is on its way to{' '}
+                  <span className="font-semibold text-primary">{email}</span>.
+                </p>
               </motion.div>
             ) : (
               <motion.form
@@ -70,7 +76,11 @@ export default function NewsletterCTA() {
                 <input
                   type="email"
                   value={email}
-                  onChange={(e) => { setEmail(e.target.value); setStatus('idle'); setErrorMsg('') }}
+                  onChange={(e) => {
+                    setEmail(e.target.value)
+                    setStatus('idle')
+                    setErrorMsg('')
+                  }}
                   placeholder="Your email address"
                   required
                   disabled={status === 'loading'}
