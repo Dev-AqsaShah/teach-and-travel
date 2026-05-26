@@ -33,7 +33,7 @@ export default function HomePage() {
         subheadline="Private lessons with Anna Gladysheva — academic researcher, historian, and language teacher with 13+ years of experience."
         primaryCTA={{ label: 'Book Your First Lesson', href: '/book' }}
         secondaryCTA={{ label: 'Meet Anna', href: '/about' }}
-        imageSrc="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200"
+        imageSrc="/anna-Picsart-BackgroundRemover.jpeg"
         imageAlt="Anna Gladysheva — Language Teacher"
         variant="split"
       />
@@ -57,7 +57,7 @@ export default function HomePage() {
             <FadeInView direction="right">
               <div className="relative aspect-[4/5] max-w-md rounded-card overflow-hidden shadow-card-hover mx-auto lg:mx-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800"
+                  src="/anna-Picsart-BackgroundRemover.jpeg"
                   alt="Anna Gladysheva portrait"
                   fill
                   sizes="(max-width: 1024px) 80vw, 40vw"

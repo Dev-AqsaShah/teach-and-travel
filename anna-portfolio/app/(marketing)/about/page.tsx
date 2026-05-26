@@ -46,7 +46,7 @@ export default function AboutPage() {
         headline="Scholar, Teacher, Language Bridge"
         subheadline="I believe language is never just vocabulary — it is history, identity, and human connection."
         primaryCTA={{ label: 'Book a Lesson', href: '/book' }}
-        imageSrc="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200"
+        imageSrc="/anna-Picsart-BackgroundRemover.jpeg"
         imageAlt="Anna Gladysheva"
         variant="split"
       />
