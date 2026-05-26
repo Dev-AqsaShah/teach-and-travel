@@ -1,16 +1,39 @@
 'use client'
 
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import FadeInView from '@/components/motion/FadeInView'
-import Button from '@/components/ui/Button'
 
 export default function NewsletterCTA() {
   const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    if (!email) return
+    setStatus('loading')
+    setErrorMsg('')
+
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      const data = await res.json()
+
+      if (!res.ok) {
+        setErrorMsg(data.error || 'Something went wrong.')
+        setStatus('error')
+        return
+      }
+
+      setStatus('success')
+    } catch {
+      setErrorMsg('Could not connect. Please try again.')
+      setStatus('error')
+    }
   }
 
   return (
@@ -22,23 +45,59 @@ export default function NewsletterCTA() {
             Get Language Tips in Your Inbox
           </h2>
           <p className="text-text-muted mb-8 leading-relaxed">
-            Join 1,000+ students and get weekly Russian & English learning tips, travel stories, and free resources.
+            Join 1,000+ students and get weekly Russian &amp; Romanian learning tips, travel stories, and free resources.
           </p>
-          {submitted ? (
-            <p className="text-accent font-semibold">Thank you! Check your inbox for a welcome gift.</p>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex gap-3 flex-col sm:flex-row">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email address"
-                required
-                className="flex-1 px-4 py-3 rounded-btn border border-border focus:outline-none focus:border-accent font-sans text-sm bg-white"
-                aria-label="Email address"
-              />
-              <Button type="submit" variant="primary">Subscribe Free</Button>
-            </form>
+
+          <AnimatePresence mode="wait">
+            {status === 'success' ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-accent/10 border border-accent/30 rounded-card px-6 py-5"
+              >
+                <p className="text-primary font-serif text-lg mb-1">Check your inbox!</p>
+                <p className="text-text-muted text-sm">A language tip is on its way to <span className="font-semibold text-primary">{email}</span>.</p>
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form"
+                onSubmit={handleSubmit}
+                className="flex gap-3 flex-col sm:flex-row"
+                initial={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); setStatus('idle'); setErrorMsg('') }}
+                  placeholder="Your email address"
+                  required
+                  disabled={status === 'loading'}
+                  className="flex-1 px-4 py-3 rounded-btn border border-border focus:outline-none focus:border-accent font-sans text-sm bg-white disabled:opacity-60 transition-colors"
+                  aria-label="Email address"
+                />
+                <motion.button
+                  type="submit"
+                  disabled={status === 'loading'}
+                  whileHover={{ scale: status === 'loading' ? 1 : 1.02 }}
+                  whileTap={{ scale: status === 'loading' ? 1 : 0.98 }}
+                  className="px-6 py-3 bg-primary text-white font-semibold rounded-btn text-sm hover:bg-primary/90 transition-colors disabled:opacity-60 whitespace-nowrap"
+                >
+                  {status === 'loading' ? 'Sending…' : 'Subscribe Free'}
+                </motion.button>
+              </motion.form>
+            )}
+          </AnimatePresence>
+
+          {errorMsg && (
+            <motion.p
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-red-500 text-sm mt-3"
+            >
+              {errorMsg}
+            </motion.p>
           )}
         </FadeInView>
       </div>
